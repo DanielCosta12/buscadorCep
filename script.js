@@ -5,7 +5,7 @@ async function getData() {
     let ceps = document.querySelector("#cep").valueAsNumber;
     const res = await fetch(`https://cep.awesomeapi.com.br/${ceps}`);
     if (res.status != 200) {
-      return alert("C");
+      return alert("Adicione o cep correto ou a API está com problemas se você digitou o cep correto!");
     } else {
       const data = await res.json();
       addHtml(data);
