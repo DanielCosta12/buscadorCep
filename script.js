@@ -1,16 +1,29 @@
 const submit = document.querySelector("#submit");
 
-async function getData(cep) {
+async function getData() {
   try {
-    const BASE_URL = `https://cep.awesomeapi.com.br/${cep}`;
-    const res = await fetch(BASE_URL);
-    const data = await res.json();
-    console.log(cep);
+    let ceps = document.querySelector("#cep").valueAsNumber;
+    const res = await fetch(`https://cep.awesomeapi.com.br/${ceps}`);
+    if (res.status != 200) {
+      return alert("C");
+    } else {
+      const data = await res.json();
+      addHtml(data);
+    }
   } catch (e) {
     console.log(e);
   }
-  //   let cep = document.querySelector("#cep").valueAsNumber;
-  //   console.log(cep);
+}
+function addHtml(data) {
+  let result = document.querySelector("#result");
+  result.textContent = `Endereço: ${data.address}
+   - Seu Bairro: ${data.district}
+   - Sua Cidade/Estado: ${data.city}/${data.state}
+   - e seu cep é: ${data.cep}`;
 }
 
-submit.addEventListener("click", () => getData(cep));
+submit.addEventListener("click", () => getData());
+// address;
+// district;
+// city / state;
+// cep;
